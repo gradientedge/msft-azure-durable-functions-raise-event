@@ -1,0 +1,2 @@
+allowBuilds:
+  azure-functions-core-tools: true

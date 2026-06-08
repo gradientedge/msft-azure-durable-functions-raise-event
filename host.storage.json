@@ -1,0 +1,41 @@
+{
+  "version": "2.0",
+  "logging": {
+    "applicationInsights": {
+      "samplingSettings": {
+        "isEnabled": true,
+        "excludedTypes": "Request"
+      }
+    },
+    "logLevel": {
+      "DurableTask.AzureStorage": "Warning",
+      "DurableTask.Core": "Warning",
+      "Function.orderProcessingOrchestrator": "Information"
+    }
+  },
+  "extensionBundle": {
+    "id": "Microsoft.Azure.Functions.ExtensionBundle",
+    "version": "[4.*, 5.0.0)"
+  },
+  "extensions": {
+    "durableTask": {
+      "hubName": "%TASKHUB_NAME%",
+      "storageProvider": {
+        "type": "AzureStorage"
+      },
+      "maxConcurrentActivityFunctions": 10,
+      "maxConcurrentOrchestratorFunctions": 5,
+      "tracing": {
+        "distributedTracingEnabled": true,
+        "version": "V2"
+      }
+    },
+    "serviceBus": {
+      "prefetchCount": 0,
+      "autoCompleteMessages": false,
+      "maxAutoLockRenewalDuration": "00:05:00",
+      "maxConcurrentCalls": 16,
+      "maxMessageBatchSize": 1
+    }
+  }
+}

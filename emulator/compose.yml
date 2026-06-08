@@ -1,0 +1,70 @@
+name: microsoft-azure-servicebus-emulator
+services:
+  emulator:
+    container_name: "servicebus-emulator"
+    image: mcr.microsoft.com/azure-messaging/servicebus-emulator:latest
+    pull_policy: always
+    volumes:
+      - "./config.json:/ServiceBus_Emulator/ConfigFiles/Config.json"
+    ports:
+      - "5672:5672"
+      - "5300:5300"
+    environment:
+      SQL_SERVER: sqledge
+      MSSQL_SA_PASSWORD: "Testing123$" # Password should be same as what is set for SQL Edge
+      ACCEPT_EULA: "Y"
+    depends_on:
+      - sqledge
+    networks:
+      sb-emulator:
+        aliases:
+          - "sb-emulator"
+  sqledge:
+    container_name: "sqledge"
+    image: "mcr.microsoft.com/azure-sql-edge:latest"
+    networks:
+      sb-emulator:
+        aliases:
+          - "sqledge"
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "Testing123$"
+    depends_on:
+      - azurite
+  azurite:
+    container_name: "azurite"
+    image: mcr.microsoft.com/azure-storage/azurite
+    hostname: azurite
+    restart: always
+    volumes:
+      - "./data:/data"
+    ports:
+      # blob service
+      - "10000:10000"
+      # queue service
+      - "10001:10001"
+      # table service
+      - "10002:10002"
+  durable-functions-monitor:
+    container_name: "durable-functions-monitor"
+    image: scaletone/durablefunctionsmonitor:6.7
+    pull_policy: always
+    ports:
+      - "9092:80"
+    environment:
+      AzureWebJobsStorage: "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://azurite:10000/devstoreaccount1;QueueEndpoint=http://azurite:10001/devstoreaccount1;TableEndpoint=http://azurite:10002/devstoreaccount1;"
+      DFM_NONCE: "i_sure_know_what_i_am_doing"
+      # DFM_HUB_NAME: "default"
+    depends_on:
+      - azurite
+  dts-emulator:
+    container_name: "dts-emulator"
+    image: mcr.microsoft.com/dts/dts-emulator:latest
+    pull_policy: always
+    ports:
+      # gRPC endpoint (app connects here)
+      - "8080:8080"
+      # Dashboard UI
+      - "8082:8082"
+networks:
+  sb-emulator:

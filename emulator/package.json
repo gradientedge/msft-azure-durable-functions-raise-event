@@ -1,0 +1,10 @@
+{
+  "name": "@ge/tooling-emulator",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@azure/data-tables": "catalog:",
+    "@azure/service-bus": "catalog:"
+  }
+}

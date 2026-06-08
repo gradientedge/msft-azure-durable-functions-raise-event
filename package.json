@@ -1,0 +1,46 @@
+{
+  "name": "durable-function-order-processing",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "emulator:start": "cd emulator && docker compose up --force-recreate -d",
+    "emulator:stop": "cd emulator && docker compose stop",
+    "build": "tsc",
+    "func": "func",
+    "watch": "tsc -w",
+    "clean": "rm -rf dist",
+    "prestart": "npm run clean && npm run build",
+    "test": "echo \"No tests yet...\"",
+    "config": "cp host.storage.json host.json && echo 'Switched to Azure Storage'",
+    "start": "./scripts/start-storage.sh",
+    "rewind": "./example/rewind.sh --local",
+    "infra:provision": "./infra/provision.sh",
+    "infra:deploy": "./infra/deploy.sh --provider storage",
+    "infra:teardown": "./infra/teardown.sh"
+  },
+  "dependencies": {
+    "@azure/abort-controller": "^2.1.2",
+    "@azure/core-amqp": "^4.4.2",
+    "@azure/core-auth": "^1.10.1",
+    "@azure/core-client": "^1.10.2",
+    "@azure/core-paging": "^1.6.2",
+    "@azure/core-rest-pipeline": "^1.24.0",
+    "@azure/core-tracing": "^1.3.1",
+    "@azure/core-util": "^1.13.1",
+    "@azure/core-xml": "^1.5.1",
+    "@azure/eventgrid": "^5.12.0",
+    "@azure/functions": "^4.16.0",
+    "@azure/logger": "^1.3.0",
+    "@azure/service-bus": "^7.9.5",
+    "durable-functions": "^3.3.1",
+    "is-buffer": "^2.0.5",
+    "long": "^5.3.2",
+    "rhea-promise": "^3.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "rimraf": "^6.1.3",
+    "typescript": "^6.0.3"
+  },
+  "main": "dist/src/index.js"
+}
