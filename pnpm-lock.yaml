@@ -261,8 +261,8 @@ packages:
     resolution: {integrity: sha512-6bIM7fsJxeo3uXv7OncQYsBAMPJ7V16Slahl/6M98C/i2q+vB1+4a0MtrvYwDFEUrwDSbAmeLDRXsOBwrL7yAg==}
     hasBin: true
 
-  follow-redirects@1.16.0:
-    resolution: {integrity: sha512-y5rN/uOsadFT/JfYwhxRS5R7Qce+g3zG97+JrtFZlC9klX/W5hD7iiLzScI4nZqUS7DNUdhPgw4xI8W2LuXlUw==}
+  follow-redirects@1.16.1:
+    resolution: {integrity: sha512-FNvFGzoMLWmE6Yj9spb/zjd7yiNCHiAW9/Tg9CXrQ8wuu32HtlJOwWO11OJafl5FfY3DxTdQ0vj42zU1kvv5jg==}
     engines: {node: '>=4.0'}
     peerDependencies:
       debug: '*'
@@ -640,7 +640,7 @@ snapshots:
 
   axios@1.17.0(debug@2.6.9):
     dependencies:
-      follow-redirects: 1.16.0(debug@2.6.9)
+      follow-redirects: 1.16.1(debug@2.6.9)
       form-data: 4.0.5
       https-proxy-agent: 5.0.1
       proxy-from-env: 2.1.0
@@ -749,7 +749,7 @@ snapshots:
       strnum: 2.3.0
       xml-naming: 0.1.0
 
-  follow-redirects@1.16.0(debug@2.6.9):
+  follow-redirects@1.16.1(debug@2.6.9):
     optionalDependencies:
       debug: 2.6.9
 
